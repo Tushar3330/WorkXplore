@@ -7,6 +7,8 @@ import mongodbconnect from './utils/db.js';
 
 //importing the routes
 import userRoutes from './routes/userRoutes.js';
+import companyRoutes from './routes/companyRoutes.js'
+
 
 
 dotenv.config({});
@@ -31,7 +33,7 @@ app.use(cors(
 
 //Routes
 app.use('/api/v1/users', userRoutes);
-
+app.use('/api/v1/company' , companyRoutes);
 
 //Running the server on the defined PORT
 app.listen(PORT, () => {
