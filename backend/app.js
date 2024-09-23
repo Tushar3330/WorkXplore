@@ -25,13 +25,13 @@ app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 
 //setting cors for backend and frontend connection
+//starting frontend server on port 5173
 app.use(cors(
     {
         origin: 'http://localhost:5173',
         credentials: true
     }
 )); 
-
 
 //Routes
 app.use('/api/v1/users', userRoutes);
