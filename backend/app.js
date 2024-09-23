@@ -4,6 +4,11 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import mongodbconnect from './utils/db.js';
+
+//importing the routes
+import userRoutes from './routes/userRoutes.js';
+
+
 dotenv.config({});
 const PORT = process.env.PORT || 5000;
 
@@ -18,12 +23,14 @@ app.use(cookieParser());
 //setting cors for backend and frontend connection
 app.use(cors(
     {
-
         origin: 'http://localhost:5173',
         credentials: true
     }
 )); 
 
+
+//Routes
+app.use('/api/v1/users', userRoutes);
 
 
 //Running the server on the defined PORT
