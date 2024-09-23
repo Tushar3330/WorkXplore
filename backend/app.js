@@ -9,6 +9,7 @@ import mongodbconnect from './utils/db.js';
 import userRoutes from './routes/userRoutes.js';
 import companyRoutes from './routes/companyRoutes.js'
 import jobRoutes from './routes/jobRoutes.js';  
+import applicationRoutes from './routes/applicationRoutes.js';
 
 
 
@@ -36,6 +37,8 @@ app.use(cors(
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/company' , companyRoutes);
 app.use('/api/v1/job', jobRoutes);
+app.use('/api/v1/application', applicationRoutes);
+
 
 //Running the server on the defined PORT
 app.listen(PORT, () => {
