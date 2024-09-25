@@ -9,8 +9,12 @@ import axios from "axios";
 import { USER_API_END_POINT } from "../utils/constant";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { useUser  } from "@/context/Usercontext";
 
 function Login() {
+  
+  const login = useUser().login;
+
   const navigate = useNavigate();
   const [input, setInput] = useState({
     email: "",
@@ -33,6 +37,8 @@ function Login() {
         withCredentials: true,
       });
       if (res.data.success) {
+          // Call the login function to update the global user state
+          login({ name: res.data.user.fullname, role: input.role  , profile: res.data.user.profile , email: res.data.user.email });
         navigate("/");
         toast.success(res.data.message);
       }

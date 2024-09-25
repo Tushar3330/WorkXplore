@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Homepage from "./components/pages/Homepage";
 import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
+import Jobs from "./components/pages/Jobs";
 
 function App() {
   // Create a browser router  for createing routes
@@ -18,6 +19,12 @@ function App() {
       path: "/signup",
       element: <Signup />,
     },
+
+    {
+      path:"/jobs", 
+      element: <Jobs />
+
+    }
   ]);
 
   return (
