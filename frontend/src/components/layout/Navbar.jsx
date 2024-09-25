@@ -1,15 +1,24 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import Button from "../common/Button";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Avatar } from "../ui/avatar";
+import { AvatarImage } from "@radix-ui/react-avatar";
+import { Button } from "../ui/button";
+import { LogOut, User2 } from "lucide-react";
+import { Link } from "react-router-dom"; // Assuming you're using React Router
+
 function Navbar() {
-  const classlinks = ["Home", "Jobs", "Browse", "", "News"];
+  const user = false; // Example, replace with actual user state
+  const classlinks = ["Home", "Jobs", "Browse"];
+
   return (
-    <div className="max-w-screen-xl mx-auto py-3 flex  justify-between gap-10 border-b-[1px] border-zinc-700  ">
-      <div className="flex items-center justify-center ">
+    <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      {/* Logo Section */}
+      <div className="flex items-center">
         <svg
-          width="18"
-          height="18"
-          viewBox="0  0 15 19"
+          width="23"
+          height="23"
+          viewBox="0 0 15 19"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -20,8 +29,8 @@ function Navbar() {
             fill="currentColor"
           ></path>
           <path
-           fillRule="evenodd"
-           clipRule="evenodd"
+            fillRule="evenodd"
+            clipRule="evenodd"
             d="M1.45464e-07 1.58333C1.45464e-07 0.708882 0.750582 0 1.67647 0H12.8529C13.7788 0 14.5294 0.708882 14.5294 1.58333C14.5294 2.45778 13.7788 3.16667 12.8529 3.16667H1.67647C0.750582 3.16667 1.45464e-07 2.45778 1.45464e-07 1.58333Z"
             fill="currentColor"
           ></path>
@@ -32,32 +41,77 @@ function Navbar() {
             fill="currentColor"
           ></path>
         </svg>
-        <div className="text-xl pl-2 font-bold">Work Xplore</div>
-
-        <div className="flex gap-14 links ml-80">
-          {classlinks.map((link, index) =>
-            link.length === 0 ? (
-              <span key={index} className="w-[2px] h-7  bg-zinc-700"></span>
-            ) : (
-              <a
-                key={index}
-                href="#"
-                className="text-md flex gap-1 items-center"
-              >
-                {index === 1 && (
-                  <span
-                    style={{ boxShadow: "0 0 0.25em #00FF19" }}
-                    className="inline-block h-1 w-1 rounded-full bg-green-300"
-                  ></span>
-                )}
-                {link}
-              </a>
-            )
-          )}
-        </div>
+        <div className="text-3xl pl-2 font-bold">Work Xplore</div>
       </div>
 
-      <Button />
+      {/* Links and User Section */}
+      <div className="flex items-center space-x-10">
+        {/* Navigation Links */}
+        {classlinks.map((link, index) => (
+          <a
+            key={index}
+            href="#"
+            className="text-md flex gap-1 items-center text-zinc-700 font-semibold hover:text-blue-500 transition"
+          >
+            {index === 1 && (
+              <span
+                style={{ boxShadow: "0 0 0.25em #00FF19" }}
+                className="inline-block h-1 w-1 rounded-full bg-green-500"
+              ></span>
+            )}
+            {link}
+          </a>
+        ))}
+
+        {/* Authentication Section */}
+        {!user ? (
+          <div className="flex items-center gap-2">
+            <a href="/login">
+              <Button variant="outline">Login</Button>
+            </a>
+            <a href="/signup">
+              <Button className="bg-zinc-800 hover:bg-zinc-950">
+                Signup
+              </Button>
+            </a>
+          </div>
+        ) : (
+          <Popover>
+            <PopoverTrigger asChild>
+              <Avatar className={"cursor-pointer"}>
+                <AvatarImage src="https://github.com/shadcn.png" alt="shadcui" />
+              </Avatar>
+            </PopoverTrigger>
+
+            <PopoverContent className={"w-[18rem]"}>
+              <div className="flex gap-7">
+                <Avatar className={"cursor-pointer mt-1"}>
+                  <AvatarImage
+                    src="https://github.com/shadcn.png"
+                    alt="shadcui"
+                  />
+                </Avatar>
+                <div>
+                  <h1 className="font-medium">Welcome Tushar</h1>
+                  <p className="text-sm text-muted-foreground">
+                    I am a frontend developer
+                  </p>
+                </div>
+              </div>
+              <div className="flex flex-col items-start mt-5">
+                <div className="flex w-fit items-center gap-3 cursor-pointer">
+                  <User2 />
+                  <Button variant="link">View Profile</Button>
+                </div>
+                <div className="flex w-fit items-center gap-3 cursor-pointer">
+                  <LogOut />
+                  <Button variant="link">Logout</Button>
+                </div>
+              </div>
+            </PopoverContent>
+          </Popover>
+        )}
+      </div>
     </div>
   );
 }
