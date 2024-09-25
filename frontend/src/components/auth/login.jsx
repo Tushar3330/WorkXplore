@@ -1,4 +1,4 @@
-import Navbar from "../layout/Navbar";
+import Navbar from "../common/Navbar";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";

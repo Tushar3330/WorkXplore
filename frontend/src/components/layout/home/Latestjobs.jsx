@@ -1,4 +1,4 @@
-import JobCard from "./Jobcard";
+import JobCard from "./LatestJobcard";
 
 // const randomJobs = [1, 2, 3, 4, 5, 6, 7, 8];
 

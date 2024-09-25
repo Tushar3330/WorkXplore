@@ -1,4 +1,4 @@
-import heroimage from "../../assets/hero.jpg";
+import heroimage from "../../../assets/hero.jpg";
 import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
 

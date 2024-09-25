@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
-import Navbar from '../layout/Navbar'
-import Herosection from '../layout//Herosection'
-import CategoryCatalouge from '../layout/CategoryCatalouge'
-import Latestjobs from '../layout/Latestjobs'
-import Footer from '../layout/Footer'
+import Navbar from '../common/Navbar'
+import Herosection from '../layout/home/Herosection'
+import CategoryCatalouge from '../layout/home/CategoryCatalouge'
+import Latestjobs from '../layout/home/Latestjobs'
+import Footer from '../common/Footer'
 
 function Homepage() {
   return (

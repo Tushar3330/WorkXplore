@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-import { Badge } from '../ui/badge'
+import { Badge } from '../../ui/badge'
 import { useNavigate } from 'react-router-dom'
 
 const JobCard = ({job}) => {

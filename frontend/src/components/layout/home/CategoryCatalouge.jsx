@@ -1,6 +1,6 @@
 
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../ui/carousel';
-import { Button } from '../ui/button';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../../ui/carousel';
+import { Button } from '../../ui/button';
 import { useNavigate } from "react-router-dom";
 
 
