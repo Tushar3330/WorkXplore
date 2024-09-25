@@ -5,7 +5,8 @@ import { Avatar } from "../ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
 import { Button } from "../ui/button";
 import { LogOut, User2 } from "lucide-react";
-import { Link } from "react-router-dom"; // Assuming you're using React Router
+import { Link } from "react-router-dom";
+// Assuming you're using React Router
 
 function Navbar() {
   const user = false; // Example, replace with actual user state
@@ -48,7 +49,7 @@ function Navbar() {
       <div className="flex items-center space-x-10">
         {/* Navigation Links */}
         {classlinks.map((link, index) => (
-          <a
+          <Link
             key={index}
             href="#"
             className="text-md flex gap-1 items-center text-zinc-700 font-semibold hover:text-blue-500 transition"
@@ -60,26 +61,28 @@ function Navbar() {
               ></span>
             )}
             {link}
-          </a>
+          </Link>
         ))}
 
         {/* Authentication Section */}
         {!user ? (
           <div className="flex items-center gap-2">
-            <a href="/login">
+            <Link to="/login">
               <Button variant="outline">Login</Button>
-            </a>
-            <a href="/signup">
-              <Button className="bg-zinc-800 hover:bg-zinc-950">
-                Signup
-              </Button>
-            </a>
+            </Link>
+
+            <Link to="/signup">
+              <Button className="bg-zinc-800 hover:bg-zinc-950">Signup</Button>
+            </Link>
           </div>
         ) : (
           <Popover>
             <PopoverTrigger asChild>
               <Avatar className={"cursor-pointer"}>
-                <AvatarImage src="https://github.com/shadcn.png" alt="shadcui" />
+                <AvatarImage
+                  src="https://github.com/shadcn.png"
+                  alt="shadcui"
+                />
               </Avatar>
             </PopoverTrigger>
 
