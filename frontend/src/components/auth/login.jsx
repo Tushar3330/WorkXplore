@@ -37,8 +37,9 @@ function Login() {
         withCredentials: true,
       });
       if (res.data.success) {
-          // Call the login function to update the global user state
-          login({ name: res.data.user.fullname, role: input.role  , profile: res.data.user.profile , email: res.data.user.email });
+         login(
+          res.data.user,
+         )
         navigate("/");
         toast.success(res.data.message);
       }

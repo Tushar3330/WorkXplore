@@ -4,13 +4,15 @@ import { Input } from "../ui/input";
 import { RadioGroup } from "../ui/radio-group";
 import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import axios from "axios";
 import { USER_API_END_POINT } from "../utils/constant";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "@/context/Usercontext";
 
 function Signup() {
+  const{user} = useUser();
   const navigate = useNavigate();
   const [input, setInput] = useState({
     fullname: "",
@@ -18,7 +20,7 @@ function Signup() {
     phoneNumber: "",
     password: "",
     role: "",
-    profile: null, // profile should be initialized as null or an empty value
+    file: "", // profile should be initialized as null or an empty value
   });
 
   const eventhandler = (e) => {
@@ -27,7 +29,7 @@ function Signup() {
 
   const filehandler = (e) => {
     // Correctly handling file input, using e.target.files
-    setInput({ ...input, profile: e.target.files[0] });
+    setInput({ ...input, file: e.target.files[0] });
   };
 
   // for handling the form submission
@@ -39,7 +41,9 @@ function Signup() {
     formData.append("phoneNumber", input.phoneNumber);
     formData.append("password", input.password);
     formData.append("role", input.role);
-    formData.append("profile", input.profile);
+    if (input.file) {
+      formData.append("file", input.file);
+  }
 
     try {
       const res = await axios.post(`${USER_API_END_POINT}/register`, formData, {
@@ -62,6 +66,12 @@ function Signup() {
       console.log(error);
     }
   };
+  useEffect(()=>{
+    if(user){
+        navigate("/");
+    }
+},[])
+
 
   return (
     <>
@@ -147,7 +157,6 @@ function Signup() {
                 <Input
                   accept="image/*"
                   type="file"
-                  name="profile"
                   onChange={filehandler}
                   className="cursor-pointer mt-1"
                 />

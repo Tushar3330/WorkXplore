@@ -1,6 +1,8 @@
 import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import getDataUri from "../utils/datauri.js";
+import cloudinary from "../utils/cloudinary.js";
 
 export const register = async (req, res) => {
     try {
@@ -12,6 +14,9 @@ export const register = async (req, res) => {
                 success: false
             });
         };
+        const file = req.file;
+        const fileUri = getDataUri(file);
+        const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
        
         const user = await User.findOne({ email });
         if (user) {
@@ -28,6 +33,10 @@ export const register = async (req, res) => {
             phoneNumber,
             password: hashedPassword,
             role,
+            profile: {
+                profilePhoto:cloudResponse.secure_url,
+                
+            }
            
         });
 
@@ -108,6 +117,11 @@ export const updateProfile = async (req, res) => {
     try {
         const { fullname, email, phoneNumber, bio, skills } = req.body;
 
+        const file = req.file;
+        // cloudinary ayega idhar
+        const fileUri = getDataUri(file);
+        const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+
 
         let skillsArray;
         if(skills){
@@ -129,6 +143,12 @@ export const updateProfile = async (req, res) => {
         if(bio) user.profile.bio = bio
         if(skills) user.profile.skills = skillsArray
       
+      // resume comes later here...
+      if(cloudResponse){
+        user.profile.resume = cloudResponse.secure_url // save the cloudinary url
+        user.profile.resumeOriginalName = file.originalname // Save the original file name
+    }
+
 
         await user.save();
 

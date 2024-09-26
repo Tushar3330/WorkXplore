@@ -11,19 +11,22 @@ export const useUser = () => {
 
 // Create a UserProvider component
 export const UserProvider = ({ children }) => {
-  // Global user state
   const [user, setUser] = useState(null);
 
   const login = (userData) => {
-    setUser(userData); // No need for nested object
+    setUser(userData);
   };
 
   const logout = () => {
     setUser(null);
   };
 
+  const updateProfile = (updatedUserData) => {
+    setUser((prevUser) => ({ ...prevUser, ...updatedUserData }));
+  };
+
   return (
-    <UserContext.Provider value={{ user, login, logout }}>
+    <UserContext.Provider value={{ user, login, logout, updateProfile }}>
       {children}
     </UserContext.Provider>
   );

@@ -7,15 +7,36 @@ import { Button } from "../ui/button";
 import { LogOut, User2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useUser } from "@/context/Usercontext";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { USER_API_END_POINT } from "../utils/constant";
+import { toast } from "sonner";
+
 
 function Navbar() {
-  const { user, logout } = useUser(); // Manage user state
-  const classlinks = ["Home", "Jobs", "Browse"];
-  const recruiterlink = ["Home", "Post Job"];
+  const { user, logout } = useUser(); 
+  const navigate = useNavigate();
 
-  const handleLogout = () => {
-    logout();
-    // Optionally, you can add more logic here, like redirecting to a login page.
+  
+
+  const classlinks = ["Home", "Jobs", "Browse"];
+  const recruiterlink = ["Home", "Companies" , "Jobs"];
+
+    const handleLogout = async () => {
+      try {
+          const res = await axios.get(`${USER_API_END_POINT}/logout`, { withCredentials: true });
+          if (res.data.success) {
+             logout();
+              navigate("/");
+              toast.success(res.data.message);
+          }
+      } catch (error) {
+          console.log(error);
+          toast.error(error.response.data.message);
+      }
+
+   
+
   };
 
   return (
@@ -58,7 +79,7 @@ function Navbar() {
           recruiterlink.map((link, index) => (
             <Link
               key={index}
-              to={link === "Home" ? "/" : `/${link.toLowerCase()}`} // Forward to "/" if link is "Home"
+              to={link === "Home" ? "/" : `/admin/${link.toLowerCase()}`} // Forward to "/" if link is "Home"
               className="text-md flex gap-1 items-center text-zinc-700 font-semibold hover:text-blue-500 transition"
             >
               {index === 1 && (
