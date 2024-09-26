@@ -4,6 +4,8 @@ import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
 import Jobs from "./components/pages/Jobspage";
 import Browse from "./components/pages/Browse";
+import Profile from "./components/pages/Profile";
+import Jobdescription from "./components/layout/jobs/Jobdescription";
 
 function App() {
   // Create a browser router  for createing routes
@@ -28,10 +30,19 @@ function App() {
     }
     ,
     {
+      path:"/description/:id",
+      element: <Jobdescription />
+    }
+    ,
+    {
       path:"/browse",
       element: <Browse />
-    }
-
+    },
+    {
+      path:"/profile",
+      element: <Profile />
+    },
+  
   
   ]);
 
