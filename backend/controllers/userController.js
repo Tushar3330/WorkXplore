@@ -122,8 +122,12 @@ export const updateProfile = async (req, res) => {
         // If a file is uploaded, upload it to Cloudinary
         if (file) {
             const fileUri = getDataUri(file);
-            cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+            cloudResponse = await cloudinary.uploader.upload(fileUri.content, {
+                folder: "workXplore/resumes",
+             
+            });
         }
+        
 
         const userId = req.id; // Get userId from middleware authentication
         let user = await User.findById(userId);
