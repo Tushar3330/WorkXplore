@@ -3,6 +3,7 @@ import Homepage from "./components/pages/Homepage";
 import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
 import Jobs from "./components/pages/Jobspage";
+import Browse from "./components/pages/Browse";
 
 function App() {
   // Create a browser router  for createing routes
@@ -25,6 +26,13 @@ function App() {
       element: <Jobs />
 
     }
+    ,
+    {
+      path:"/browse",
+      element: <Browse />
+    }
+
+  
   ]);
 
   return (
