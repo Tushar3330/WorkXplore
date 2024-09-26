@@ -10,10 +10,12 @@ import { USER_API_END_POINT } from "../utils/constant";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@/context/Usercontext";
+import { Loader2 } from "lucide-react";
 
 function Signup() {
   const{user} = useUser();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [input, setInput] = useState({
     fullname: "",
     email: "",
@@ -46,6 +48,7 @@ function Signup() {
   }
 
     try {
+      setLoading(true);
       const res = await axios.post(`${USER_API_END_POINT}/register`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -64,6 +67,10 @@ function Signup() {
         toast.error("An unexpected error occurred. Please try again later.");
       }
       console.log(error);
+    }
+    finally {
+      setLoading(false);
+     
     }
   };
   useEffect(()=>{
@@ -162,11 +169,13 @@ function Signup() {
                 />
               </div>
             </div>
-
-            <Button type="submit" className="w-full my-4">
-              Signup
-            </Button>
-
+            {loading ? (
+              <Button className="w-full my-4">
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait
+              </Button>
+            ) : (
+              <Button type="submit" className="w-full my-4">Sign Up</Button>
+            )}
             <span className="text-sm">
               Already have an account?{" "}
               <Link to="/login" className="text-blue-600">

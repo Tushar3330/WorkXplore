@@ -18,7 +18,7 @@ function UpdateProfile({ open, setOpen }) {
     phoneNumber: user?.phoneNumber || "",
     bio: user?.profile?.bio || "",
     skills: user?.profile?.skills?.join(", ") || "", // convert array to string for input
-    file: null, // initialize as null
+    file: user?.profile?.resume || ""
   });
   const [loading, setLoading] = useState(false);
 
@@ -40,9 +40,11 @@ function UpdateProfile({ open, setOpen }) {
     formData.append("bio", input.bio);
     formData.append("skills", input.skills.split(",").map((skill) => skill.trim())); // convert back to array
 
-    if (input.file) {
-      formData.append("file", input.file);
-    }
+  // Append the file only if the user has selected a new one
+  if (input.file) {
+    formData.append("file", input.file);
+  }
+
 
     try {
       setLoading(true);

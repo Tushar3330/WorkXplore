@@ -5,17 +5,17 @@ import { Badge } from "../ui/badge";
 import { Label } from "../ui/label";
 import { Mail, Contact, Pen } from "lucide-react";
 import AppliedJobTable from "../layout/profile/Appliedjobs";
-import { useState , useEffect } from "react";
+import { useState, useEffect } from "react";
 import Updateprofile from "../layout/profile/Updateprofile";
 import { useUser } from "../../context/Usercontext";
 
+const isResume = true;
 function Profile() {
   const { user } = useUser();
   const [open, setOpen] = useState(false);
   useEffect(() => {
     // Perform any side effects related to user data
   }, [user]); // Trigger re-render when user changes
-  
 
   return (
     <div>
@@ -25,7 +25,7 @@ function Profile() {
           <div className="flex items-center gap-4">
             <Avatar className="h-24 w-24">
               <AvatarImage
-                src="https://www.shutterstock.com/image-vector/circle-line-simple-design-logo-600nw-2174926871.jpg"
+                src={user?.profile?.profilePhoto}
                 alt="profile"
               />
             </Avatar>
@@ -64,15 +64,19 @@ function Profile() {
             )}
           </div>
         </div>
-        <div className="my-5 flex flex-col gap-2">
-          <Label>Resume</Label>
-          <a
-            href={user?.profile?.resume || "#"}
-            download
-            className="underline text-blue-500"
-          >
-            {user?.profile?.resume ? "Download Resume" : "No resume available"}
-          </a>
+        <div className="grid w-full max-w-sm items-center gap-1.5">
+          <Label className="text-md font-bold">Resume</Label>
+          {isResume ? (
+            <a
+              target="blank"
+              href={user?.profile?.resume}
+              className="text-blue-500 w-full hover:underline cursor-pointer"
+            >
+              {user?.profile?.resumeOriginalName}
+            </a>
+          ) : (
+            <span>NA</span>
+          )}
         </div>
         <AppliedJobTable />
       </div>

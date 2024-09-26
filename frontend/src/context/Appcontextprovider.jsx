@@ -1,12 +1,15 @@
 /* eslint-disable react/prop-types */
 
-import { UserProvider } from './UserContext'; // Import the UserProvider
+import { UserProvider } from './UserContext'; 
+import { JobProvider } from './JobContext';
 
 // AppContextProvider component
 export const AppContextProvider = ({ children }) => {
   return (
     <UserProvider>
-      {children}
+      <JobProvider>
+        {children}
+      </JobProvider>
     </UserProvider>
   );
 };

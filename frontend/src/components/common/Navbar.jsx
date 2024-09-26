@@ -124,7 +124,7 @@ function Navbar() {
             <PopoverTrigger asChild>
               <Avatar className={"cursor-pointer"}>
                 <AvatarImage
-                  src="https://github.com/shadcn.png" // Replace with actual user avatar
+                  src={user?.profile?.profilePhoto ? user.profile.profilePhoto : "/path/to/default/profile-photo-icon.svg"}// Replace with actual user avatar
                   alt="User Avatar"
                 />
               </Avatar>
@@ -134,7 +134,7 @@ function Navbar() {
               <div className="flex gap-7">
                 <Avatar className={"cursor-pointer mt-1"}>
                   <AvatarImage
-                    src="https://github.com/shadcn.png" 
+                    src={user?.profile?.profilePhoto ? user.profile.profilePhoto : "/path/to/default/profile-photo-icon.svg"}
                     alt="User Avatar"
                   />
                 </Avatar>
