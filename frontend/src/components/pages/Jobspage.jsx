@@ -4,7 +4,7 @@ import Job from "../layout/jobs/Jobcard";
 
 import Filterjobs from "../layout/jobs/Filterjobs";
 
-const jobsArray = [1, 2, 3, 4, 5, 6, 7, 8 , 9];
+const jobsArray = [{_id:1}, 2, 3, 4, 5, 6, 7, 8 , 9];
 
 const Jobs = () => {
 

@@ -1,19 +1,30 @@
 import Navbar from "../common/Navbar";
 import { Avatar, AvatarImage } from "../ui/Avatar";
-import { useUser } from "@/context/Usercontext";
-import {Button} from "../ui/button"
-import {Badge} from "../ui/badge"
-import {Label} from "../ui/label"
-import {Mail, Contact, Pen} from "lucide-react"
+// import { useUser } from "@/context/Usercontext";
+import { Button } from "../ui/button";
+import { Badge } from "../ui/badge";
+import { Label } from "../ui/label";
+import { Mail, Contact, Pen } from "lucide-react";
 import AppliedJobTable from "../layout/profile/Appliedjobs";
-
-
-
+import { useState } from "react";
+import Updateprofile from "../layout/profile/Updateprofile";
 
 function Profile() {
+  //dummy data for user
 
- const { user } = useUser(); 
- const isResume =  true;
+  const user = {
+    fullname: "Tushar",
+    email: "absd@gmail.com",
+    phoneNumber: "1234567890",
+    profile: {
+      bio: "I am a software developer",
+      skills: ["React", "Node", "MongoDB"],
+      resume: "https://www.google.com",
+    },
+  };
+
+  const isResume = true;
+  const [open, setOpen] = useState(false);
 
   return (
     <div>
@@ -34,7 +45,7 @@ function Profile() {
               </div>
             </div>
             <Button
-             
+              onClick={() => setOpen(true)}
               className="text-right"
               variant="outline"
             >
@@ -71,7 +82,7 @@ function Profile() {
                 href={user?.profile?.resume}
                 className="text-blue-500 w-full hover:underline cursor-pointer"
               >
-               Tushar
+                Tushar
               </a>
             ) : (
               <span>NA</span>
@@ -82,6 +93,11 @@ function Profile() {
           <h1 className="font-bold text-lg my-5">Applied Jobs</h1>
           <AppliedJobTable></AppliedJobTable>
         </div>
+
+        {/* opening update or edit profile diaLOUGE WHEN CLICKED ON EDIT BUTTON as open is true */}
+        <Updateprofile open={open } setOpen={setOpen}></Updateprofile>
+
+
       </div>
     </div>
   );
