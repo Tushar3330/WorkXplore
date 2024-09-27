@@ -42,6 +42,7 @@ function Navbar() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
       {/* Logo Section */}
+      <Link to="/">
       <div className="flex items-center">
       <svg
           width="24"
@@ -71,6 +72,7 @@ function Navbar() {
         </svg>
         <div className="text-3xl pl-2 font-bold">Work Xplore</div>
       </div>
+      </Link>
 
       {/* Links and User Section */}
       <div className="flex items-center space-x-10">
@@ -79,7 +81,7 @@ function Navbar() {
           recruiterlink.map((link, index) => (
             <Link
               key={index}
-              to={link === "Home" ? "/" : `/admin/${link.toLowerCase()}`} // Forward to "/" if link is "Home"
+              to={link === "Home" ? "/" : `/recruiter/${link.toLowerCase()}`} // Forward to "/" if link is "Home"
               className="text-md flex gap-1 items-center text-zinc-700 font-semibold hover:text-blue-500 transition"
             >
               {index === 1 && (

@@ -5,8 +5,13 @@ import Herosection from '../layout/home/Herosection'
 import CategoryCatalouge from '../layout/home/CategoryCatalouge'
 import Latestjobs from '../layout/home/Latestjobs'
 import Footer from '../common/Footer'
+import useGetAllJobs from '../../hooks/usegetalljobs'
 
 function Homepage() {
+
+  useGetAllJobs()
+   
+        
   return (
    <>
    <Navbar />

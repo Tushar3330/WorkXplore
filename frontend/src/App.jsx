@@ -6,6 +6,8 @@ import Jobs from "./components/pages/Jobspage";
 import Browse from "./components/pages/Browse";
 import Profile from "./components/pages/Profile";
 import Jobdescription from "./components/layout/jobs/Jobdescription";
+import Admin from "./components/pages/Admin";
+
 
 function App() {
   // Create a browser router  for createing routes
@@ -42,7 +44,11 @@ function App() {
       path:"/profile",
       element: <Profile />
     },
-  
+
+    {
+      path:'admin' ,
+      element: <Admin/>
+    }
   
   ]);
 
