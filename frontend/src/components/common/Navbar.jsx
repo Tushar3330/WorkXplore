@@ -6,7 +6,8 @@ import { AvatarImage } from "@radix-ui/react-avatar";
 import { Button } from "../ui/button";
 import { LogOut, User2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useUser } from "@/context/Usercontext";
+  import { useDispatch, useSelector } from 'react-redux'
+  import { setUser } from '@/redux/authSlice'
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { USER_API_END_POINT } from "../utils/constant";
@@ -14,7 +15,9 @@ import { toast } from "sonner";
 
 
 function Navbar() {
-  const { user, logout } = useUser(); 
+
+  const { user } = useSelector(store => store.auth);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   
@@ -24,19 +27,17 @@ function Navbar() {
 
     const handleLogout = async () => {
       try {
-          const res = await axios.get(`${USER_API_END_POINT}/logout`, { withCredentials: true });
-          if (res.data.success) {
-             logout();
-              navigate("/");
-              toast.success(res.data.message);
-          }
-      } catch (error) {
-          console.log(error);
-          toast.error(error.response.data.message);
-      }
-
-   
-
+        const res = await axios.get(`${USER_API_END_POINT}/logout`, { withCredentials: true });
+        if (res.data.success) {
+            dispatch(setUser(null));
+            navigate("/");
+            toast.success(res.data.message);
+        }
+    } catch (error) {
+        console.log(error);
+        toast.error(error.response.data.message);
+    }
+  
   };
 
   return (

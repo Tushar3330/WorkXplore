@@ -1,8 +1,8 @@
 import JobCard from "./LatestJobcard";
-import { useJob } from "../../../context/Jobcontext";
+import { useSelector } from 'react-redux'; 
 
 const LatestJobs = () => {
-    const {allJobs} =  useJob();
+  const {allJobs} = useSelector(store=>store.job);
       
   return (  
     <div className="max-w-7xl mx-auto my-20">

@@ -8,9 +8,7 @@ import Profile from "./components/pages/Profile";
 import Jobdescription from "./components/layout/jobs/Jobdescription";
 import Admin from "./components/pages/Admin";
 
-
 function App() {
-  // Create a browser router  for createing routes
   const approuter = createBrowserRouter([
     {
       path: "/",
@@ -26,36 +24,31 @@ function App() {
     },
 
     {
-      path:"/jobs", 
-      element: <Jobs />
-
-    }
-    ,
-    {
-      path:"/description/:id",
-      element: <Jobdescription />
-    }
-    ,
-    {
-      path:"/browse",
-      element: <Browse />
+      path: "/jobs",
+      element: <Jobs />,
     },
     {
-      path:"/profile",
-      element: <Profile />
+      path: "/description/:id",
+      element: <Jobdescription />,
+    },
+    {
+      path: "/browse",
+      element: <Browse />,
+    },
+    {
+      path: "/profile",
+      element: <Profile />,
     },
 
     {
-      path:'admin' ,
-      element: <Admin/>
-    }
-  
+      path: "admin",
+      element: <Admin />,
+    },
   ]);
 
   return (
     <>
-
-    {/* RouterProvider is used to provide the routes to the app */}
+      {/* RouterProvider is used to provide the routes to the app */}
       <RouterProvider router={approuter} />
     </>
   );

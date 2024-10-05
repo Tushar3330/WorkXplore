@@ -4,23 +4,27 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Label } from "../../ui/label";
 import { Input } from "../../ui/input";
 import { Button } from "../../ui/button";
-import { useUser } from "@/context/UserContext";
+import { setUser } from '@/redux/authSlice'
 import axios from "axios";
 import { USER_API_END_POINT } from "../../utils/constant";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
+import { useDispatch, useSelector } from 'react-redux'
 
 function UpdateProfile({ open, setOpen }) {
-  const { user, updateProfile } = useUser();
-  const [input, setInput] = useState({
-    fullname: user?.fullname || "",
-    email: user?.email || "",
-    phoneNumber: user?.phoneNumber || "",
-    bio: user?.profile?.bio || "",
-    skills: user?.profile?.skills?.join(", ") || "", // convert array to string for input
-    file: user?.profile?.resume || ""
-  });
   const [loading, setLoading] = useState(false);
+    const { user } = useSelector(store => store.auth);
+
+    const [input, setInput] = useState({
+      fullname: user?.fullname || "",
+      email: user?.email || "",
+      phoneNumber: user?.phoneNumber || "",
+      bio: user?.profile?.bio || "",
+      skills: user?.profile?.skills?.map(skill => skill) || "",
+      file: user?.profile?.resume || ""
+  });
+  const dispatch = useDispatch();
+
 
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -30,45 +34,40 @@ function UpdateProfile({ open, setOpen }) {
     setInput({ ...input, file: e.target.files?.[0] });
   };
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    
-    const formData = new FormData();
-    formData.append("fullname", input.fullname);
-    formData.append("email", input.email);
-    formData.append("phoneNumber", input.phoneNumber);
-    formData.append("bio", input.bio);
-    formData.append("skills", input.skills.split(",").map((skill) => skill.trim())); // convert back to array
-
-  // Append the file only if the user has selected a new one
-  if (input.file) {
-    formData.append("file", input.file);
-  }
-
-
-    try {
-      setLoading(true);
-      const res = await axios.post(`${USER_API_END_POINT}/profile/update`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        withCredentials: true,
-      });
-
-      if (res.data.success) {
-        // Pass the entire user object returned from the server
-        updateProfile(res.data.user);
-        console.log(res.data.user);
-        toast.success(res.data.message);
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error(error?.response?.data?.message || "Something went wrong");
-    } finally {
-      setLoading(false);
-      setOpen(false); // Close the dialog
+   const submitHandler = async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append("fullname", input.fullname);
+        formData.append("email", input.email);
+        formData.append("phoneNumber", input.phoneNumber);
+        formData.append("bio", input.bio);
+        formData.append("skills", input.skills);
+        if (input.file) {
+            formData.append("file", input.file);
+        }
+        try {
+            setLoading(true);
+            const res = await axios.post(`${USER_API_END_POINT}/profile/update`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                withCredentials: true
+            });
+            if (res.data.success) {
+                dispatch(setUser(res.data.user));
+                toast.success(res.data.message);
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error(error.response.data.message);
+        } finally{
+            setLoading(false);
+        }
+        setOpen(false);
+        console.log(input);
     }
-  };
+
+
 
   return (
     <Dialog open={open}>

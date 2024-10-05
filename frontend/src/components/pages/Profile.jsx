@@ -5,17 +5,15 @@ import { Badge } from "../ui/badge";
 import { Label } from "../ui/label";
 import { Mail, Contact, Pen } from "lucide-react";
 import AppliedJobTable from "../layout/profile/Appliedjobs";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Updateprofile from "../layout/profile/Updateprofile";
-import { useUser } from "../../context/Usercontext";
+import { useSelector } from 'react-redux'
+
 
 const isResume = true;
 function Profile() {
-  const { user } = useUser();
-  const [open, setOpen] = useState(false);
-  useEffect(() => {
-    // Perform any side effects related to user data
-  }, [user]); // Trigger re-render when user changes
+    const [open, setOpen] = useState(false);
+    const {user} = useSelector(store=>store.auth);
 
   return (
     <div>
