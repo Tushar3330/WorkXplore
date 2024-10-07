@@ -8,8 +8,10 @@ import Profile from "./components/pages/ProfilePage";
 import Jobdescription from "./components/layout/jobs/Jobdescription";
 import Admin from "./components/pages/Admin";
 import Companies from "./components/pages/CompanyPage";
-import CompanyCreate from "./components/layout/Company/CompanyCreate";
-import CompanySetup from "./components/layout/Company/CompanySetup";
+import CompanyCreate from "./components/layout/company/CompanyCreate";
+import CompanySetup from "./components/layout/company/CompanySetup";
+import RecruiterJobsPage from "./components/pages/RecruiterJobsPage";
+import PostJob from "./components/layout/recruiterJobs/PostJob";
 
 function App() {
   const approuter = createBrowserRouter([
@@ -47,7 +49,7 @@ function App() {
       path: "admin",
       element: <Admin />,
     },
-  //routes  for the recruites side
+  //routes  for the recruites company
   {
     path :"/recruiter/companies",
     element : <Companies />
@@ -60,6 +62,18 @@ function App() {
   {
     path :"/recruiter/companies/:id",
     element : <CompanySetup />
+  },
+
+  //recruiter jobs
+
+  {
+    path :"/recruiter/jobs",
+    element : <RecruiterJobsPage />
+  }
+  ,
+  {
+    path :"/recruiter/jobs/create",
+    element : <PostJob />
   }
 
   ]);
