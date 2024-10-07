@@ -13,6 +13,7 @@ import CompanySetup from "./components/layout/company/CompanySetup";
 import RecruiterJobsPage from "./components/pages/RecruiterJobsPage";
 import PostJob from "./components/layout/recruiterJobs/PostJob";
 import ApplicantPage from "./components/pages/ApplicantPage";
+import ProtectedRoute from "./utils/ProtectedRoute";
 
 function App() {
   const approuter = createBrowserRouter([
@@ -53,33 +54,33 @@ function App() {
   //routes  for the recruites company
   {
     path :"/recruiter/companies",
-    element : <Companies />
+    element : <ProtectedRoute><Companies /></ProtectedRoute>
   }
   ,
   {
     path :"/recruiter/companies/create",
-    element : <CompanyCreate />
+    element : <ProtectedRoute><CompanyCreate /></ProtectedRoute>
   },
   {
     path :"/recruiter/companies/:id",
-    element : <CompanySetup />
+    element : <ProtectedRoute><CompanySetup /></ProtectedRoute>
   },
 
   //recruiter jobs
 
   {
     path :"/recruiter/jobs",
-    element : <RecruiterJobsPage />
+    element : <ProtectedRoute><RecruiterJobsPage /></ProtectedRoute>
   }
   ,
   {
     path :"/recruiter/jobs/create",
-    element : <PostJob />
+    element : <ProtectedRoute><PostJob /></ProtectedRoute>
   }
   ,
   {
     path :"/recruiter/jobs/:id/applicants",
-    element : <ApplicantPage />
+    element : <ProtectedRoute><ApplicantPage /></ProtectedRoute>
   }
 
   ]);
