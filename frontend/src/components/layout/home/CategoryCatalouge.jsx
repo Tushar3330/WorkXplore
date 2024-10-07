@@ -2,6 +2,9 @@
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../../ui/carousel';
 import { Button } from '../../ui/button';
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { setSearchedQuery } from '@/redux/jobSlice';
+
 
 
 const category = [
@@ -14,11 +17,11 @@ const category = [
 
 const CategoryCarousel = () => {
 
-    const Navigate = useNavigate()
-    const searchJobHandler = (cat) => {
-        console.log(cat)
-       Navigate("/browse")
-
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const searchJobHandler = (query) => {
+        dispatch(setSearchedQuery(query));
+        navigate("/browse");
     }
 
     return (

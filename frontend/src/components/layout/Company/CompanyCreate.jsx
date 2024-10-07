@@ -5,7 +5,7 @@ import { Label } from "../../ui/label";
 import Navbar from "../../common/navbar";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { COMPANY_API_END_POINT } from "../../utils/constant";
+import { COMPANY_API_END_POINT } from "../../../utils/constant";
 import { toast } from "sonner";
 import { useState } from "react";
 import { setSingleCompany } from "@/redux/companyslice";

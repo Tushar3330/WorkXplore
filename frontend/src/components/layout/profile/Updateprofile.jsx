@@ -6,7 +6,7 @@ import { Input } from "../../ui/input";
 import { Button } from "../../ui/button";
 import { setUser } from '@/redux/authSlice'
 import axios from "axios";
-import { USER_API_END_POINT } from "../../utils/constant";
+import { USER_API_END_POINT } from "../../../utils/constant";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { useDispatch, useSelector } from 'react-redux'

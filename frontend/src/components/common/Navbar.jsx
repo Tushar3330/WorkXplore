@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
   import { setUser } from '@/redux/authSlice'
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { USER_API_END_POINT } from "../utils/constant";
+import { USER_API_END_POINT } from "../../utils/constant";
 import { toast } from "sonner";
 
 

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { ADMIN_API_END_POINT } from '../utils/constant';
+import { ADMIN_API_END_POINT } from '../../utils/constant';
 
 const AdminDashboard = () => {
     const [students, setStudents] = useState([]);

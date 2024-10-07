@@ -12,6 +12,7 @@ import CompanyCreate from "./components/layout/company/CompanyCreate";
 import CompanySetup from "./components/layout/company/CompanySetup";
 import RecruiterJobsPage from "./components/pages/RecruiterJobsPage";
 import PostJob from "./components/layout/recruiterJobs/PostJob";
+import ApplicantPage from "./components/pages/ApplicantPage";
 
 function App() {
   const approuter = createBrowserRouter([
@@ -74,6 +75,11 @@ function App() {
   {
     path :"/recruiter/jobs/create",
     element : <PostJob />
+  }
+  ,
+  {
+    path :"/recruiter/jobs/:id/applicants",
+    element : <ApplicantPage />
   }
 
   ]);
