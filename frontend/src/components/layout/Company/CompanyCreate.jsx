@@ -31,6 +31,7 @@ function CompanyCreate() {
             navigate(`/recruiter/companies/${companyId}`);
         }
     } catch (error) {
+         toast.error(error.response.data.message);
         console.log(error);
     }
     }
