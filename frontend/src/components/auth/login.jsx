@@ -20,7 +20,7 @@ const Login = () => {
       email: "",
       password: "",
       role: "",
-  });
+  }); 
   const { loading,user } = useSelector(store => store.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
