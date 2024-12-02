@@ -8,13 +8,12 @@ import Footer from '../common/Footer'
 import useGetAllJobs from '../../hooks/usegetalljobs'
 import { setSearchedQuery } from '@/redux/jobslice'
 import { useDispatch } from 'react-redux'
-import { useeffect } from 'react';
+
 
 function Homepage() {
 
   useGetAllJobs()
 
-  //set search query to empty string
   const dispatch = useDispatch();
   useEffect(() => {
     return () => {
@@ -23,7 +22,7 @@ function Homepage() {
   }, [dispatch]);
   
    
-        
+    
   return (
    <>
    <Navbar />

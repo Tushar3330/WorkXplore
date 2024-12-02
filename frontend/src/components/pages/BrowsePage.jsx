@@ -9,10 +9,12 @@ import { Button } from '../ui/button';
 
 const Browse = () => {
     useGetAllJobs();
-    const { allJobs } = useSelector(store => store.job);
-    const dispatch = useDispatch();
+    const { allJobs   } = useSelector(store => store.job);
+    const dispatch = useDispatch(
+
+    );
     
-    const [query, setQuery] = useState(""); // State for storing search query
+    const [query, setQuery] = useState(''); // State for storing search query
 
     useEffect(() => {
         return () => {
