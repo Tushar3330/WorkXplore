@@ -14,6 +14,7 @@ import RecruiterJobsPage from "./components/pages/RecruiterJobsPage";
 import PostJob from "./components/layout/recruiterJobs/PostJob";
 import ApplicantPage from "./components/pages/ApplicantPage";
 import ProtectedRoute from "./utils/ProtectedRoute";
+import Dashboard from "./components/pages/Dashboard";
 
 function App() {
   const approuter = createBrowserRouter([
@@ -46,6 +47,12 @@ function App() {
       path: "/profile",
       element: <Profile />,
     },
+
+    {
+      path: "/dashboard",
+      element: <Dashboard />,
+    }
+    ,
 
     {
       path: "admin",
@@ -84,6 +91,8 @@ function App() {
   }
 
   ]);
+
+
 
   return (
     <>

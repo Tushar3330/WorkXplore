@@ -4,7 +4,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Avatar } from "../ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
 import { Button } from "../ui/button";
-import { LogOut, User2 } from "lucide-react";
+import { LogOut, User2 , LayoutDashboard, Layout  } from "lucide-react";
 import { Link } from "react-router-dom";
   import { useDispatch, useSelector } from 'react-redux'
   import { setUser } from '@/redux/authSlice'
@@ -155,6 +155,16 @@ function Navbar() {
                     <Button variant="link">View Profile</Button>
                   </Link>
                 </div>
+
+                <div className="flex w-fit items-center gap-3 cursor-pointer" >
+                <LayoutDashboard />
+                  <Link to="/dashboard">
+                    <Button variant="link">Dashboard</Button>
+                  </Link>
+                </div>
+
+
+
                 <div className="flex w-fit items-center gap-3 cursor-pointer" onClick={handleLogout}>
                   <LogOut />
                   <Button variant="link">Logout</Button>

@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { useDispatch, useSelector } from 'react-redux'
 
+
 function UpdateProfile({ open, setOpen }) {
   const [loading, setLoading] = useState(false);
     const { user } = useSelector(store => store.auth);
@@ -74,6 +75,7 @@ function UpdateProfile({ open, setOpen }) {
       <DialogContent className="sm:max-w-[425px]" onInteractOutside={() => setOpen(false)}>
         <DialogHeader>
           <DialogTitle>Update Profile</DialogTitle>
+          
         </DialogHeader>
         <form onSubmit={submitHandler}>
           <div className="grid gap-4 py-4">
@@ -153,6 +155,7 @@ function UpdateProfile({ open, setOpen }) {
             )}
           </DialogFooter>
         </form>
+
       </DialogContent>
     </Dialog>
   );
