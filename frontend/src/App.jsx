@@ -6,7 +6,6 @@ import Jobs from "./components/pages/JobsPage";
 import Browse from "./components/pages/BrowsePage";
 import Profile from "./components/pages/ProfilePage";
 import Jobdescription from "./components/layout/jobs/Jobdescription";
-import Admin from "./components/pages/Admin";
 import Companies from "./components/pages/CompanyPage";
 import CompanyCreate from "./components/layout/company/CompanyCreate";
 import CompanySetup from "./components/layout/company/CompanySetup";
@@ -15,91 +14,205 @@ import PostJob from "./components/layout/recruiterJobs/PostJob";
 import ApplicantPage from "./components/pages/ApplicantPage";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import Dashboard from "./components/pages/Dashboard";
+import ProtectedRoute2 from "./utils/ProtectedRoute2";
+
+// Admin panel imports
+import Sidebar from "./components/admin/components/Sidebar";
+import Navbar from "./components/admin/components/Navbar";
+import Home from "./components/admin/pages/Home";
+
+import Users from "./components/admin/pages/Users";
+import Recruiters from "./components/admin/pages/Recruiters";
+import Single from "./components/admin/pages/Single";
+import New from "./components/admin/pages/New";
+import Single2 from "./components/admin/pages/Single2";
+import Post from "./components/admin/components/Post";
+import ChartHolder from "./components/admin/pages/ChartHolder";
+import StatHolder from "./components/admin/pages/StatHolder";
 
 function App() {
   const approuter = createBrowserRouter([
+    // General Routes
+    { path: "/", element: <Homepage /> },
+    { path: "/login", element: <Login /> },
+    { path: "/signup", element: <Signup /> },
+    { path: "/jobs", element: <Jobs /> },
+    { path: "/description/:id", element: <Jobdescription /> },
+    { path: "/browse", element: <Browse /> },
+    { path: "/profile", element: <Profile /> },
+    { path: "/dashboard", element: <Dashboard /> },
+
+    // Recruiter Routes
     {
-      path: "/",
-      element: <Homepage />,
+      path: "/recruiter/companies",
+      element: <ProtectedRoute><Companies /></ProtectedRoute>,
     },
     {
-      path: "/login",
-      element: <Login />,
+      path: "/recruiter/companies/create",
+      element: <ProtectedRoute><CompanyCreate /></ProtectedRoute>,
     },
     {
-      path: "/signup",
-      element: <Signup />,
+      path: "/recruiter/companies/:id",
+      element: <ProtectedRoute><CompanySetup /></ProtectedRoute>,
+    },
+    {
+      path: "/recruiter/jobs",
+      element: <ProtectedRoute><RecruiterJobsPage /></ProtectedRoute>,
+    },
+    {
+      path: "/recruiter/jobs/create",
+      element: <ProtectedRoute><PostJob /></ProtectedRoute>,
+    },
+    {
+      path: "/recruiter/jobs/:id/applicants",
+      element: <ProtectedRoute><ApplicantPage /></ProtectedRoute>,
     },
 
+    // Admin Panel Routes
     {
-      path: "/jobs",
-      element: <Jobs />,
+      path: "/adminpanel",
+      element: (
+        <ProtectedRoute2>
+          <div className="admin-panel flex">
+            <Sidebar />
+            <div className="admin-content flex-grow">
+              <Navbar />
+              <Home />
+            </div>
+          </div>
+        </ProtectedRoute2>
+      ),
+    },
+ 
+    {
+      path: "/adminpanel/users",
+      element: (
+        <ProtectedRoute2>
+          <div className="admin-panel flex">
+            <Sidebar />
+            <div className="admin-content flex-grow">
+              <Navbar />
+              <Users />
+            </div>
+          </div>
+        </ProtectedRoute2>
+      ),
     },
     {
-      path: "/description/:id",
-      element: <Jobdescription />,
+      path: "/adminpanel/users/new",
+      element: (
+        <ProtectedRoute2>
+          <div className="admin-panel flex">
+            <Sidebar />
+            <div className="admin-content flex-grow">
+              <Navbar />
+              <New />
+            </div>
+          </div>
+        </ProtectedRoute2>
+      ),
     },
     {
-      path: "/browse",
-      element: <Browse />,
+      path: "/adminpanel/users/:userId",
+      element: (
+        <ProtectedRoute2>
+          <div className="admin-panel flex">
+            <Sidebar />
+            <div className="admin-content flex-grow">
+              <Navbar />
+              <Single />
+            </div>
+          </div>
+        </ProtectedRoute2>
+      ),
     },
     {
-      path: "/profile",
-      element: <Profile />,
+      path: "/adminpanel/recruiters",
+      element: (
+        <ProtectedRoute2>
+          <div className="admin-panel flex">
+            <Sidebar />
+            <div className="admin-content flex-grow">
+              <Navbar />
+              <Recruiters />
+            </div>
+          </div>
+        </ProtectedRoute2>
+      ),
     },
-
     {
-      path: "/dashboard",
-      element: <Dashboard />,
-    }
-    ,
-
-    {
-      path: "admin",
-      element: <Admin />,
+      path: "/adminpanel/recruiters/new",
+      element: (
+        <ProtectedRoute2>
+          <div className="admin-panel flex">
+            <Sidebar />
+            <div className="admin-content flex-grow">
+              <Navbar />
+              <New />
+            </div>
+          </div>
+        </ProtectedRoute2>
+      ),
     },
-  //routes  for the recruites company
-  {
-    path :"/recruiter/companies",
-    element : <ProtectedRoute><Companies /></ProtectedRoute>
-  }
-  ,
-  {
-    path :"/recruiter/companies/create",
-    element : <ProtectedRoute><CompanyCreate /></ProtectedRoute>
-  },
-  {
-    path :"/recruiter/companies/:id",
-    element : <ProtectedRoute><CompanySetup /></ProtectedRoute>
-  },
-
-  //recruiter jobs
-
-  {
-    path :"/recruiter/jobs",
-    element : <ProtectedRoute><RecruiterJobsPage /></ProtectedRoute>
-  }
-  ,
-  {
-    path :"/recruiter/jobs/create",
-    element : <ProtectedRoute><PostJob /></ProtectedRoute>
-  }
-  ,
-  {
-    path :"/recruiter/jobs/:id/applicants",
-    element : <ProtectedRoute><ApplicantPage /></ProtectedRoute>
-  }
-
+    {
+      path: "/adminpanel/recruiters/:recruiterId",
+      element: (
+        <ProtectedRoute2>
+          <div className="admin-panel flex">
+            <Sidebar />
+            <div className="admin-content flex-grow">
+              <Navbar />
+              <Single2 />
+            </div>
+          </div>
+        </ProtectedRoute2>
+      ),
+    },
+    {
+      path: "/adminpanel/posts",
+      element: (
+        <ProtectedRoute2>
+          <div className="admin-panel flex">
+            <Sidebar />
+            <div className="admin-content flex-grow">
+              <Navbar />
+              <Post />
+            </div>
+          </div>
+        </ProtectedRoute2>
+      ),
+    },
+    {
+      path: "/adminpanel/charts",
+      element: (
+        <ProtectedRoute2>
+          <div className="admin-panel flex">
+            <Sidebar />
+            <div className="admin-content flex-grow">
+              <Navbar />
+              <ChartHolder />
+            </div>
+          </div>
+        </ProtectedRoute2>
+      ),
+    },
+    {
+      path: "/adminpanel/stats",
+      element: (
+        <ProtectedRoute2>
+          <div className="admin-panel flex">
+            <Sidebar />
+            <div className="admin-content flex-grow">
+              <Navbar />
+              <StatHolder />
+            </div>
+          </div>
+        </ProtectedRoute2>
+      ),
+    },
   ]);
-
-
-
-  return (
-    <>
-      {/* RouterProvider is used to provide the routes to the app */}
-      <RouterProvider router={approuter} />
-    </>
-  );
+  return <RouterProvider router={approuter} />;
 }
+
 
 export default App;
