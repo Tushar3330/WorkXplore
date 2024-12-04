@@ -41,8 +41,8 @@ const Signup = () => {
       errors.email = 'Enter a valid email address.';
     }
 
-    // Phone Number validation
-    if (!input.phoneNumber.trim()) {
+    // Phone Number validation (Now a number)
+    if (!input.phoneNumber) {
       errors.phoneNumber = 'Phone number is required.';
     } else if (!/^\d{10}$/.test(input.phoneNumber)) {
       errors.phoneNumber = 'Enter a valid 10-digit phone number.';
@@ -61,7 +61,7 @@ const Signup = () => {
     }
 
     // File validation (optional)
-    if (input.file && !['image/jpeg', 'image/png'].includes(input.file.type)) {
+    if (input.file && !['image/jpeg', 'image/png', 'image/jpg'].includes(input.file.type)) {
       errors.file = 'Profile picture must be a JPEG or PNG file.';
     }
 
@@ -89,7 +89,7 @@ const Signup = () => {
     const formData = new FormData();
     formData.append('fullname', input.fullname);
     formData.append('email', input.email);
-    formData.append('phoneNumber', input.phoneNumber);
+    formData.append('phoneNumber', input.phoneNumber);  // Send phoneNumber as a number
     formData.append('password', input.password);
     formData.append('role', input.role);
     if (input.file) {
@@ -158,7 +158,7 @@ const Signup = () => {
           <div className="my-2">
             <Label>Phone Number</Label>
             <Input
-              type="text"
+              type="number"  // Now using number type
               value={input.phoneNumber}
               name="phoneNumber"
               onChange={changeEventHandler}
