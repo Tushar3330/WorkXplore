@@ -14,18 +14,19 @@ import { useDispatch, useSelector } from 'react-redux'
 
 function UpdateProfile({ open, setOpen }) {
   const [loading, setLoading] = useState(false);
-    const { user } = useSelector(store => store.auth);
+  const { user } = useSelector(store => store.auth);
 
-    const [input, setInput] = useState({
-      fullname: user?.fullname || "",
-      email: user?.email || "",
-      phoneNumber: user?.phoneNumber || "",
-      bio: user?.profile?.bio || "",
-      skills: user?.profile?.skills?.map(skill => skill) || "",
-      file: user?.profile?.resume || ""
+  // Initial input values
+  const [input, setInput] = useState({
+    fullname: user?.fullname || "",
+    email: user?.email || "",
+    phoneNumber: user?.phoneNumber || "",
+    bio: user?.profile?.bio || "",
+    skills: user?.profile?.skills?.map(skill => skill) || "",
+    file: user?.profile?.resume || ""
   });
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
 
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -35,52 +36,62 @@ function UpdateProfile({ open, setOpen }) {
     setInput({ ...input, file: e.target.files?.[0] });
   };
 
-   const submitHandler = async (e) => {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append("fullname", input.fullname);
-        formData.append("email", input.email);
-        formData.append("phoneNumber", input.phoneNumber);
-        formData.append("bio", input.bio);
-        formData.append("skills", input.skills);
-        if (input.file) {
-            formData.append("file", input.file);
-        }
-        try {
-            setLoading(true);
-            const res = await axios.post(`${USER_API_END_POINT}/profile/update`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                },
-                withCredentials: true
-            });
-            if (res.data.success) {
-                dispatch(setUser(res.data.user));
-                toast.success(res.data.message);
-            }
-        } catch (error) {
-            console.log(error);
-            toast.error(error.response.data.message);
-        } finally{
-            setLoading(false);
-        }
-        setOpen(false);
-        console.log(input);
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
+    // Prepare data to update
+    const formData = new FormData();
+    formData.append("fullname", input.fullname);
+    formData.append("email", input.email);
+    formData.append("phoneNumber", input.phoneNumber);
+    formData.append("bio", input.bio);
+    formData.append("skills", input.skills);
+
+    // If file (resume) is provided, add to formData
+    if (input.file) {
+      formData.append("file", input.file);
     }
 
+    // Check if user is recruiter
+    const updateData = user?.role !== "recruiter" ? formData : new FormData();
+    updateData.append("fullname", input.fullname);
+    updateData.append("email", input.email);
+    updateData.append("phoneNumber", input.phoneNumber);
 
+    try {
+      setLoading(true);
+
+      // Make API request
+      const res = await axios.post(`${USER_API_END_POINT}/profile/update`, updateData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        withCredentials: true
+      });
+
+      if (res.data.success) {
+        dispatch(setUser(res.data.user));
+        toast.success(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message);
+    } finally {
+      setLoading(false);
+    }
+    setOpen(false);
+  };
 
   return (
     <Dialog open={open}>
       <DialogContent className="sm:max-w-[425px]" onInteractOutside={() => setOpen(false)}>
         <DialogHeader>
           <DialogTitle>Update Profile</DialogTitle>
-          
         </DialogHeader>
+
         <form onSubmit={submitHandler}>
           <div className="grid gap-4 py-4">
             {/* Inputs for fullname, email, etc. */}
-            {/* Ensure all input fields have their corresponding onChange handlers */}
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="fullname" className="text-right">Name</Label>
               <Input
@@ -113,38 +124,45 @@ function UpdateProfile({ open, setOpen }) {
                 className="col-span-3"
               />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="bio" className="text-right">Bio</Label>
-              <Input
-                id="bio"
-                name="bio"
-                value={input.bio}
-                onChange={changeEventHandler}
-                className="col-span-3"
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="skills" className="text-right">Skills</Label>
-              <Input
-                id="skills"
-                name="skills"
-                value={input.skills}
-                onChange={changeEventHandler}
-                className="col-span-3"
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="file" className="text-right">Resume</Label>
-              <Input
-                id="file"
-                name="file"
-                type="file"
-                accept="application/pdf"
-                onChange={fileChangeHandler}
-                className="col-span-3"
-              />
-            </div>
+
+            {/* Conditionally show other fields if user is not a recruiter */}
+            {user?.role !== "recruiter" && (
+              <>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="bio" className="text-right">Bio</Label>
+                  <Input
+                    id="bio"
+                    name="bio"
+                    value={input.bio}
+                    onChange={changeEventHandler}
+                    className="col-span-3"
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="skills" className="text-right">Skills</Label>
+                  <Input
+                    id="skills"
+                    name="skills"
+                    value={input.skills}
+                    onChange={changeEventHandler}
+                    className="col-span-3"
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="file" className="text-right">Resume</Label>
+                  <Input
+                    id="file"
+                    name="file"
+                    type="file"
+                    accept="application/pdf"
+                    onChange={fileChangeHandler}
+                    className="col-span-3"
+                  />
+                </div>
+              </>
+            )}
           </div>
+
           <DialogFooter>
             {loading ? (
               <Button className="w-full my-4">
@@ -155,7 +173,6 @@ function UpdateProfile({ open, setOpen }) {
             )}
           </DialogFooter>
         </form>
-
       </DialogContent>
     </Dialog>
   );

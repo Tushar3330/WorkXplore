@@ -50,6 +50,8 @@
               <span>{user?.phoneNumber}</span>
             </div>
           </div>
+
+          {user?.role !== "recruiter" && (
           <div className="my-5">
             <h1>Skills</h1>
             <div className="flex items-center gap-1">
@@ -62,6 +64,7 @@
               )}
             </div>
           </div>
+        )}
           {user?.role !== "recruiter" && (
             <>
               <div className="grid w-full max-w-sm items-center gap-1.5">
