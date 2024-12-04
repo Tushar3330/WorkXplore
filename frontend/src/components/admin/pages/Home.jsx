@@ -16,7 +16,7 @@ function Home() {
         const response = await axios.get(`${ADMIN_API_END_POINT}/users`);
         console.log("API Response:", response.data);
         const students = response.data.students; // Assuming the response has the user data
-        const recruites = response.data.students; // Assuming the response has the user data
+        const recruites = response.data.recruiters; // Assuming the response has the user data
         console.log("API Response:", students);
         setUsers(students); // Update state with filtered data
         setRecruiters(recruites); // Update state with filtered data

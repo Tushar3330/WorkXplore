@@ -15,6 +15,7 @@ import ApplicantPage from "./components/pages/ApplicantPage";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import Dashboard from "./components/pages/Dashboard";
 import ProtectedRoute2 from "./utils/ProtectedRoute2";
+import 'animate.css';
 
 // Admin panel imports
 import Sidebar from "./components/admin/components/Sidebar";
@@ -29,6 +30,9 @@ import Single2 from "./components/admin/pages/Single2";
 import Post from "./components/admin/components/Post";
 import ChartHolder from "./components/admin/pages/ChartHolder";
 import StatHolder from "./components/admin/pages/StatHolder";
+
+import Revenuehome from "./components/revenue/Revenuehome";
+import Plans from "./components/revenue/Plans";
 
 function App() {
   const approuter = createBrowserRouter([
@@ -45,28 +49,63 @@ function App() {
     // Recruiter Routes
     {
       path: "/recruiter/companies",
-      element: <ProtectedRoute><Companies /></ProtectedRoute>,
+      element: (
+        <ProtectedRoute>
+          <Companies />
+        </ProtectedRoute>
+      ),
     },
     {
       path: "/recruiter/companies/create",
-      element: <ProtectedRoute><CompanyCreate /></ProtectedRoute>,
+      element: (
+        <ProtectedRoute>
+          <CompanyCreate />
+        </ProtectedRoute>
+      ),
     },
     {
       path: "/recruiter/companies/:id",
-      element: <ProtectedRoute><CompanySetup /></ProtectedRoute>,
+      element: (
+        <ProtectedRoute>
+          <CompanySetup />
+        </ProtectedRoute>
+      ),
     },
     {
       path: "/recruiter/jobs",
-      element: <ProtectedRoute><RecruiterJobsPage /></ProtectedRoute>,
+      element: (
+        <ProtectedRoute>
+          <RecruiterJobsPage />
+        </ProtectedRoute>
+      ),
     },
     {
       path: "/recruiter/jobs/create",
-      element: <ProtectedRoute><PostJob /></ProtectedRoute>,
+      element: (
+        <ProtectedRoute>
+          <PostJob />
+        </ProtectedRoute>
+      ),
     },
     {
       path: "/recruiter/jobs/:id/applicants",
-      element: <ProtectedRoute><ApplicantPage /></ProtectedRoute>,
+      element: (
+        <ProtectedRoute>
+          <ApplicantPage />
+        </ProtectedRoute>
+      ),
     },
+
+    //Revenue Routes
+    {
+      path: "/revenuehome",
+      element: <Revenuehome />,
+    },
+    {
+      path: "/plans",
+      element: <Plans />,
+    },
+
 
     // Admin Panel Routes
     {
@@ -83,7 +122,7 @@ function App() {
         </ProtectedRoute2>
       ),
     },
- 
+
     {
       path: "/adminpanel/users",
       element: (
@@ -213,6 +252,5 @@ function App() {
   ]);
   return <RouterProvider router={approuter} />;
 }
-
 
 export default App;
