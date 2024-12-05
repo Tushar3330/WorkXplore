@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import { CircularProgressbar } from 'react-circular-progressbar';
@@ -5,7 +6,7 @@ import "react-circular-progressbar/dist/styles.css";
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 
-function Featured() {
+function Featured({users, recruiters}) {
   return (
     <div className='featured w-[20rem] p-1 shadow-xl rounded-md h-auto'>
       <div className="top flex justify-between">
@@ -17,7 +18,7 @@ function Featured() {
         <CircularProgressbar value={70} text={"70%"} strokeWidth={5}/>
        </div>
        <p className="title font-bold  text-zinc-600">Total users registered today</p>
-       <p className="amount text-3xl">5</p>
+       <p className="amount text-3xl">{users.length + recruiters.length}</p>
        <p className="description text-center font-sm font-medium  text-zinc-500">Traffic on our website is less because our website is new in the market.</p>
        <div className="summary w-[100%] flex justify-between">
         <div className="item flex flex-col items-center">

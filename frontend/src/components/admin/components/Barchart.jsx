@@ -1,67 +1,99 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import axios from "axios";
+import { ADMIN_API_END_POINT } from "./../utils/constant";
 
-const data = [
+
+function Barchart() {
+  const [users, setUsers] = useState([]);
+  const [recruiters, setRecruiters] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    // Fetch data on component mount
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get(`${ADMIN_API_END_POINT}/users`);
+        console.log("API Response:", response.data);
+        const students = response.data.students; // Assuming the response has the user data
+        const recruites = response.data.recruiters; // Assuming the response has the user data
+        console.log("API Response:", students);
+        setUsers(students); // Update state with filtered data
+        setRecruiters(recruites); // Update state with filtered data
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
+  const data = [
     {
       name: 'January',
-      users: 4000,
-      recruiters: 400,
+      users: 0,
+      recruiters: 0,
     },
     {
       name: 'February',
-      users: 5000,
-      recruiters: 600,
+      users: 0,
+      recruiters: 0,
     },
     {
       name: 'March',
-      users: 5500,
-      recruiters: 1000,
+      users: 0,
+      recruiters: 0,
     },
     {
       name: 'April',
-      users: 3000,
-      recruiters: 900,
+      users: 0,
+      recruiters: 0,
     },
     {
       name: 'May',
-      users: 6000,
-      recruiters: 1400,
+      users: 0,
+      recruiters: 0,
     },
     {
       name: 'June',
-      users: 4000,
-      recruiters: 2400,
+      users: 0,
+      recruiters: 0,
     },
     {
       name: 'July',
-      users: 7000,
-      recruiters: 3400,
+      users: 0,
+      recruiters: 0,
     },
     {
       name: 'August',
-      users: 5000,
-      recruiters: 1400,
+      users: 0,
+      recruiters: 0,
     },
     {
       name: 'September',
-      users: 8000,
-      recruiters: 2400,
+      users: 0,
+      recruiters: 0,
     },
     {
       name: 'October',
-      users: 7000,
-      recruiters: 1500,
+      users: 0,
+      recruiters: 0,
+    },
+    {
+      name: 'November',
+      users: 0,
+      recruiters: 0,
     },
    
     {
-      name: 'November',
-      users: 3000,
-      recruiters: 800,
+      name: 'December',
+      users: users.length,
+      recruiters: recruiters.length,
     },
     
   ];
 
-function Barchart() {
   return (
     <ResponsiveContainer width="100%" height={250}>
         <BarChart

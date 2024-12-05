@@ -1,35 +1,35 @@
 import React from 'react'
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-const data = [
+
+
+function StatUser({users}) {
+  const data = [
     {
       field: 'Backend Dev',
-      Students: 120,
+      Students: 10,
     },
     {
       field: 'Frontend Dev',
-      Students: 78,
+      Students: 18,
     },
     {
       field: 'Full Stack',
-      Students: 60,
+      Students: 10,
     },
     {
       field: 'UI Designer',
-      Students: 99,
+      Students: 9,
     },
     {
       field: 'Data Scientist',
-      Students: 85,
+      Students: 25,
     },
     {
       field: 'Tester',
-      Students: 65,
+      Students: 15,
     },
   ];
-
-
-function StatUser() {
   return (
     <ResponsiveContainer width="100%" height={200}>
     <AreaChart

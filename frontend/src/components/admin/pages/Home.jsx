@@ -38,8 +38,8 @@ function Home() {
           <Widget type = "balance" amount = {200}/>
         </div>
         <div className="charts flex gap-5 m-10">
-          <Featured/>
-          <Chart/>
+          <Featured users = {users} recruiters = {recruiters}/>
+          <Chart users = {users} recruiters = {recruiters}/>
         </div>
     </div>
   )

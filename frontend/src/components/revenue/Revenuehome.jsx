@@ -33,7 +33,7 @@ function Revenuehome() {
             {showPopup && (
                 <div className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
                     <Popup
-                        message="You have reached the limit of 5 job applications. To enjoy unlimited job applications, check out our premium subscription."
+                        message="You have reached the limit of 10 job applications. To enjoy unlimited job applications, check out our premium subscription."
                         onClose={handleClosePopup}
                         onKnowMore={handleKnowMore}
                     />

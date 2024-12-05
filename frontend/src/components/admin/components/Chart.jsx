@@ -1,64 +1,70 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 
-function Chart() {
+function Chart({users, recruiters}) {
   const data = [
     {
       name: 'January',
-      users: 4000,
-      recruiters: 400,
+      users: 0,
+      recruiters:0,
     },
     {
       name: 'February',
-      users: 5000,
-      recruiters: 600,
+      users: 0,
+      recruiters:0,
     },
     {
       name: 'March',
-      users: 5500,
-      recruiters: 1000,
+      users: 0,
+      recruiters: 0,
     },
     {
       name: 'April',
-      users: 3000,
-      recruiters: 900,
+      users: 0,
+      recruiters: 0,
     },
     {
       name: 'May',
-      users: 6000,
-      recruiters: 1400,
+      users: 0,
+      recruiters: 0,
     },
     {
       name: 'June',
-      users: 4000,
-      recruiters: 2400,
+      users: 0,
+      recruiters: 0,
     },
     {
       name: 'July',
-      users: 7000,
-      recruiters: 3400,
+      users: 0,
+      recruiters: 0,
     },
     {
       name: 'August',
-      users: 5000,
-      recruiters: 1400,
+      users: 0,
+      recruiters: 0,
     },
     {
       name: 'September',
-      users: 8000,
-      recruiters: 2400,
+      users: 0,
+      recruiters: 0,
     },
     {
       name: 'October',
-      users: 7000,
-      recruiters: 1500,
+      users: 0,
+      recruiters: 0,
+    },
+    {
+      name: 'November',
+      users: 0,
+      recruiters: 0,
     },
    
     {
-      name: 'November',
-      users: 3000,
-      recruiters: 800,
+      name: 'December',
+      users: users.length,
+      recruiters: recruiters.length,
     },
     
   ];

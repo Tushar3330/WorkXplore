@@ -4,27 +4,27 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 const data = [
     {
       company: 'Google',
-      Recruiters: 90,
+      Recruiters: 1,
     },
     {
       company: 'Microsoft',
-      Recruiters: 98,
+      Recruiters: 1,
     },
     {
       company: 'Uber',
-      Recruiters: 86,
+      Recruiters: 1,
     },
     {
       company: 'Swiggy',
-      Recruiters: 99,
+      Recruiters: 1,
     },
     {
       company: 'Paytm',
-      Recruiters: 85,
+      Recruiters: 1,
     },
     {
       company: 'Meta',
-      Recruiters: 120,
+      Recruiters: 0,
     },
   ];
 

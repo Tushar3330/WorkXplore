@@ -104,7 +104,7 @@ function App() {
     {
       path: "/plans",
       element: <Plans />,
-    },
+    }, 
 
 
     // Admin Panel Routes
