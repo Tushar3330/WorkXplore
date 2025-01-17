@@ -8,7 +8,7 @@
 1. Tushar Rana (Team Lead) -- S20220010228
 2. Rudra Pratap Singh -- S20220010188
 3. Sahil Goyat -- S20220010190
-4. Nageshawari -- S20220010106
+4. Nageshawari -- S20220010061
 5. Shruthi -- S20220010106
 
 ### Project Description:
