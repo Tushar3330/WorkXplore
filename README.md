@@ -9,7 +9,7 @@
 2. Rudra Pratap Singh -- S20220010188
 3. Sahil Goyat -- S20220010190
 4. Nageshawari -- S20220010061
-5. Shruthi -- S20220010106
+5. Sruthi -- S20220010106
 
 ### Project Description:
 **Work-Xplore** is an innovative job portal designed to streamline the job search process by providing users with an intuitive platform to explore various career opportunities. The platform will enable job seekers to create profiles, browse available job listings, and apply directly to companies. Employers will be able to post job openings, manage applications, and connect with potential candidates efficiently.
