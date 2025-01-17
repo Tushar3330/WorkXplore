@@ -14,7 +14,6 @@ import applicationRoutes from './routes/applicationRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 
 
-
 dotenv.config({});
 const PORT = process.env.PORT || 5000;
 
@@ -41,6 +40,28 @@ app.use('/api/v1/company' , companyRoutes);
 app.use('/api/v1/job', jobRoutes);
 app.use('/api/v1/application', applicationRoutes);
 app.use('/api/v1/admin', adminRoutes);
+
+import Stripe from 'stripe';
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
+
+//code for the payment method using the stripe API
+app.post('/create-payment-intent', async (req, res) => {
+    const { amount } = req.body;
+
+    try {
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount: amount * 100, // Convert ₹ to paise
+            currency: 'inr',
+        });
+
+        res.send({ clientSecret: paymentIntent.client_secret });
+    } catch (error) {
+        res.status(500).send({ error: error.message });
+    }
+});
+
 
 
 //Running the server on the defined PORT

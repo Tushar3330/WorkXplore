@@ -1,28 +1,49 @@
-/* eslint-disable react/prop-types */
-import { useEffect } from 'react';
-import { Button } from '../ui/button';
-
-const PlanCard = ({ title, description, price, className }) => (
-    <div className={`p-6 rounded-lg shadow-lg transform transition-all duration-300 ease-in-out ${className} hover:scale-105 hover:translate-y-[-15px] hover:shadow-xl hover:ring-4 hover:ring-blue-400 max-w-xs mx-auto`}>
-        <h2 className="text-3xl font-semibold mb-4 text-white">{title}</h2>
-        <p className="text-gray-300 mb-4 text-lg">{description}</p>
-        <p className="text-xl font-bold mb-6 text-white">₹{price}/month</p>
-        <Button className="w-full py-3 px-6 rounded-full bg-blue-600 text-white text-lg hover:bg-blue-700 transition-all duration-300 ease-in-out">
-            Get started
-        </Button>
-    </div>
-);
+import { useState } from 'react';
+import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
+import PlanCard from './PlanCard'; // assuming PlanCard is in a separate file
 
 const Plans = () => {
-    useEffect(() => {
-        // Force a reflow of the CSS
-        const forceReflow = () => {
-            document.body.style.display = 'none';
-            document.body.offsetHeight; // Trigger reflow
-            document.body.style.display = '';
-        };
-        forceReflow();
-    }, []);
+    const stripe = useStripe();
+    const elements = useElements();
+    const [loading, setLoading] = useState(false);
+    const [price, setPrice] = useState(null); // Store the selected plan price
+
+    const handleCheckout = async (selectedPrice) => {
+        setPrice(selectedPrice); // Store the selected plan's price
+        if (!stripe || !elements) return; // Stripe not ready
+        setLoading(true);
+
+        try {
+            // Send price to backend to create a payment intent
+            const response = await fetch('http://localhost:3000/create-payment-intent', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ amount: selectedPrice * 100 }), // price in cents
+            });
+
+            const { clientSecret } = await response.json();
+
+            // Confirm card payment
+            const result = await stripe.confirmCardPayment(clientSecret, {
+                payment_method: {
+                    card: elements.getElement(CardElement),
+                },
+            });
+
+            if (result.error) {
+                alert(`Payment failed: ${result.error.message}`);
+            } else if (result.paymentIntent.status === 'succeeded') {
+                alert('Payment successful!');
+                // Redirect user or handle success
+                window.location.href = '/jobs'; // Modify this URL as needed
+            }
+        } catch (error) {
+            console.error(error);
+            alert('An error occurred.');
+        }
+
+        setLoading(false);
+    };
 
     return (
         <div className="relative flex justify-center items-center min-h-screen bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
@@ -35,20 +56,38 @@ const Plans = () => {
                         description="Basic benefits and features"
                         price="500" 
                         className="bg-gradient-to-r from-gray-600 to-gray-400 shadow-lg"
+                        onCheckoutClick={handleCheckout} 
                     />
                     <PlanCard 
                         title="Gold Plan" 
                         description="Extended benefits and features" 
                         price="1000" 
                         className="bg-gradient-to-r from-yellow-500 to-yellow-600 shadow-lg"
+                        onCheckoutClick={handleCheckout} 
                     />
                     <PlanCard 
                         title="Platinum Plan" 
                         description="All benefits and features" 
                         price="1500" 
                         className="bg-gradient-to-r from-teal-500 to-teal-700 shadow-lg"
+                        onCheckoutClick={handleCheckout} 
                     />
                 </div>
+
+                {/* Only render CardElement once */}
+                {price && (
+                    <div className="mt-8 p-4 bg-gray-200 rounded-md">
+                        <h2 className="text-xl mb-4">Complete your payment</h2>
+                        <CardElement className="mb-4 p-4 bg-gray-100 rounded-md" />
+                        <button
+                            className="w-full py-3 px-6 rounded-full bg-blue-600 text-white text-lg hover:bg-blue-700 transition-all duration-300 ease-in-out"
+                            onClick={() => handleCheckout(price)}
+                            disabled={loading}
+                        >
+                            {loading ? 'Processing...' : 'Complete Payment'}
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
     );

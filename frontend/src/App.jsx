@@ -17,6 +17,10 @@ import Dashboard from "./components/pages/Dashboard";
 import ProtectedRoute2 from "./utils/ProtectedRoute2";
 import 'animate.css';
 
+
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+const stripePromise = loadStripe('pk_test_51QSX7nK02yOLHIZBusAjmNG7ljqV9kpVQBnloQwsq4FaIQz684fu0hg8tkhNjPXsUtMJLVjuYkPExF5xsBEjYKRl00ZRYxm0jy');
 // Admin panel imports
 import Sidebar from "./components/admin/components/Sidebar";
 import Navbar from "./components/admin/components/Navbar";
@@ -249,8 +253,15 @@ function App() {
         </ProtectedRoute2>
       ),
     },
+
+
   ]);
-  return <RouterProvider router={approuter} />;
+  return (
+    // Wrap your application with Elements provider to provide Stripe context
+    <Elements stripe={stripePromise}>
+      <RouterProvider router={approuter} />
+    </Elements>
+  );;
 }
 
 export default App;
